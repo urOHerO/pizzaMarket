@@ -1,9 +1,14 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import s from "./MenuLayout.module.css";
 import Button from "../../components/Button/Button";
 import cn from "classnames";
 
 const MenuLayout = () => {
+  const navigate = useNavigate();
+  const logout = () => {
+    localStorage.removeItem("jwt");
+    navigate("/auth/login");
+  };
   return (
     <div className={s.layout}>
       <div className={s.sidebar}>
@@ -36,7 +41,7 @@ const MenuLayout = () => {
             Корзина
           </NavLink>
         </div>
-        <Button className={s.exit}>
+        <Button className={s.exit} onClick={logout}>
           <img src="src/assets/Exit.svg" alt="Иконка выхода" />
           Выйти
         </Button>
